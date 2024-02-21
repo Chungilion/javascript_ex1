@@ -1,5 +1,4 @@
 const recordForm = document.getElementById('record-form');
-//const studentidInput = document.getElementById('studentid')
 const nameInput = document.getElementById('name');
 const ageInput = document.getElementById('age');
 const emailInput = document.getElementById('email');
@@ -9,6 +8,12 @@ const editIndexInput = document.getElementById('edit-index');
 // Initialize records from local storage
 let records = JSON.parse(localStorage.getItem('records')) || [];
 console.log(records.length);
+// Function to check for duplicate names
+function isDuplicateName(email) {
+  return records.some(
+    (record) => record.email.toLowerCase() === email.toLowerCase()
+  );
+}
 
 // Display records
 function displayRecords() {
@@ -22,7 +27,7 @@ function displayRecords() {
     records.forEach((record, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
-					<td>${record.name}</td>
+                    <td>${record.name}</td>
                     <td>${record.age}</td>
                     <td>${record.email}</td>
                     <td><button onclick="editRecord(${index})">Edit</button></td>
@@ -41,12 +46,18 @@ recordForm.addEventListener('submit', function (e) {
   const email = emailInput.value;
   const editIndex = parseInt(editIndexInput.value);
 
+  if (name && age && email) {
+    if (isDuplicateName(email) && editIndex === -1) {
+      alert('Student already exists.');
+      return;
+    }
+
     if (editIndex === -1) {
       // Add a new record
-      records.push({ studentid, name, age, email });
+      records.push({ name, age, email });
     } else {
       // Update an existing record
-      records[editIndex] = { studentid, name, age, email };
+      records[editIndex] = { name, age, email };
       editIndexInput.value = -1;
     }
 
