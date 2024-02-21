@@ -7,16 +7,6 @@ const gpaInput = document.getElementById('gpa')
 const recordList = document.getElementById('record-list');
 const editIndexInput = document.getElementById('edit-index');
 
-// Initialize records from local storage
-let records = JSON.parse(localStorage.getItem('records')) || [];
-console.log(records.length);
-// Function to check for duplicate names
-function isDuplicateName(name) {
-  return records.some(
-    (record) => record.name.toLowerCase() === name.toLowerCase()
-  );
-}
-
 // Display records
 function displayRecords() {
   recordList.innerHTML = '';
@@ -53,11 +43,6 @@ recordForm.addEventListener('submit', function (e) {
   const editIndex = parseInt(editIndexInput.value);
 
   if (msv && name && dob && classes && gpa) {
-    if (isDuplicateName(name) && editIndex === -1) {
-      alert('Student already exists.');
-      return;
-    }
-
     if (editIndex === -1) {
       // Add a new record
       records.push({ msv, name, dob, classes, gpa });
