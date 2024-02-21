@@ -8,7 +8,7 @@ const recordList = document.getElementById('record-list');
 const editIndexInput = document.getElementById('edit-index');
 
 // Initialize records from local storage
-let records = JSON.parse(localStorage.getItem('records')) || [];
+let records = [];
 console.log(records.length);
 
 // Display records
@@ -55,8 +55,6 @@ recordForm.addEventListener('submit', function (e) {
       records[editIndex] = { msv, name, dateOfbirth, className, gpa };
       editIndexInput.value = -1;
     }
-
-    localStorage.setItem('records', JSON.stringify(records));
 	msvInput.value = '';
     nameInput.value = '';
     dateOfbirthInput.value = '';
@@ -89,7 +87,6 @@ function deleteRecord(index) {
 
 function confirmDelete(index) {
   records.splice(index, 1);
-  localStorage.setItem('records', JSON.stringify(records));
   displayRecords();
 }
 
