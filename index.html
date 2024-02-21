@@ -16,6 +16,10 @@
 	  background-attachment: fixed;
 	  background-size: cover;
 	}
+	.left {
+	  flex: 1;
+	  padding: 10px;
+	}
 	.center {
 	  margin-left: auto;
 	  margin-right: auto;
@@ -80,7 +84,7 @@
     <div>
         <div>
             <h1 style="color:Ivory;">Student Registration</h1>
-            <form id="record-form">
+            <form style="left" id="record-form">
 				<input type="text" id="studentID" placeholder="StudentID" required><br>
                 <input type="text" id="name" placeholder="Name" required><br>
 				<input type="date" id="dateOfbirth" placeholder="Date of Birth" required><br>
@@ -92,7 +96,7 @@
         </div>
         <div>
             <h2 style="color:Ivory;">Records</h2>
-            <table style="margin-left:auto;margin-right:auto;">
+            <table style="left">
                 <thead>
                     <tr>
 						<th>StudentID</th>
