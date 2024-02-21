@@ -13,7 +13,7 @@ function displayRecords() {
   console.log(records.length);
   if (records.length == 0) {
     const row = document.createElement('tr');
-    row.innerHTML = `<td colspan="7" style="text-align:center;color:red;">No Record Found</td>`;
+    row.innerHTML = `<td colspan="5" style="text-align:center;color:red;">No Record Found</td>`;
     recordList.appendChild(row);
   } else {
     records.forEach((record, index) => {
@@ -45,10 +45,10 @@ recordForm.addEventListener('submit', function (e) {
   if (msv && name && dob && classes && gpa) {
     if (editIndex === -1) {
       // Add a new record
-      records.push({ msv, name, dob, classes, gpa });
+      records.push({msv, name, dob, classes, gpa});
     } else {
       // Update an existing record
-      records[editIndex] = {msv, name, dob, classes, gpa };
+      records[editIndex] = {msv, name, dob, classes, gpa};
       editIndexInput.value = -1;
     }
 
