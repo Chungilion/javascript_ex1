@@ -93,9 +93,11 @@
         <div class="left">
             <h1>Student Registration</h1>
             <form id="record-form">
+				<input type="text" id="studentID" placeholder="StudentID" required>
                 <input type="text" id="name" placeholder="Name" required>
-                <input type="number" id="age" placeholder="Age" required>
-                <input type="text" id="email" placeholder="Email" required>
+				<input type="date" id="dateOfbirth" placeholder="Date of Birth" required>
+                <input type="text" id="className" placeholder="Class" required>
+                <input type="number" id="gpa" placeholder="GPA" required>
                 <button type="submit">Add Record</button>
                 <input type="hidden" id="edit-index" value="-1">
             </form>
@@ -105,9 +107,11 @@
             <table>
                 <thead>
                     <tr>
+						<th>StudentID</th>
                         <th>Name</th>
-                        <th>Age</th>
-                        <th>Email</th>
+                        <th>Date of Birth</th>
+                        <th>Class</th>
+						<th>GPA</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -116,6 +120,107 @@
             </table>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+		const recordForm = document.getElementById('record-form');
+		const studentIDInput = document.getElementById('studentID');
+		const nameInput = document.getElementById('name');
+		const dateOfbirthInput = document.getElementById('dateOfbirth');
+		const classNameInput = document.getElementById('className');
+		const gpaInput = document.getElementById('gpa');
+		const recordList = document.getElementById('record-list');
+		const editIndexInput = document.getElementById('edit-index');
+
+		let records = JSON.parse(localStorage.getItem('records')) || [];
+		console.log(records.length);
+		function isDuplicateName(studentID) {
+		  return records.some(
+			(record) => record.studentID.toLowerCase() === studentID.toLowerCase()
+		  );
+		}
+
+		// Display records
+		function displayRecords() {
+		  recordList.innerHTML = '';
+		  console.log(records.length);
+		  if (records.length === 0) {
+			const row = document.createElement('tr');
+			row.innerHTML = `<td colspan="7" style="text-align:center;color:red;">No Record Found</td>`;
+			recordList.appendChild(row);
+		  } else {
+			records.forEach((record, index) => {
+			  const row = document.createElement('tr');
+			  row.innerHTML = `
+							<td>${record.studentID}</td>
+							<td>${record.name}</td>
+							<td>${record.dateOfbirth}</td>
+							<td>${record.className}</td>
+							<td>${record.gpa}</td>
+							<td><button onclick="editRecord(${index})">Edit</button></td>
+							<td class="deleteButton"><button onclick="deleteRecord(${index})">Delete</button></td>
+						`;
+			  recordList.appendChild(row);
+			});
+		  }
+		}
+
+		recordForm.addEventListener('submit', function (e) {
+		  e.preventDefault();
+		  const studentID = studentIDInput.value;
+		  const name = nameInput.value;
+		  const dateOfbirth = dateOfbirthInput.value;
+		  const className = classNameInput.value;
+		  const gpa = gpaInput.value;
+		  const editIndex = parseInt(editIndexInput.value);
+
+		  if (studentID && name && dateOfbirth && className && gpa) {
+			if (isDuplicateName(studentID) && editIndex === -1) {
+			  alert('Student already exists.');
+			  return;
+			}
+
+			if (editIndex === -1) {
+			  records.push({ studentID, name, dateOfbirth, className, gpa });
+			} else {
+			  records[editIndex] = { studentID, name, dateOfbirth, className, gpa };
+			  editIndexInput.value = -1;
+			}
+
+			localStorage.setItem('records', JSON.stringify(records));
+			nameInput.value = '';
+			ageInput.value = '';
+			emailInput.value = '';
+			displayRecords();
+		  }
+		});
+
+		function editRecord(index) {
+		  const recordToEdit = records[index];
+		  nameInput.value = recordToEdit.name;
+		  ageInput.value = recordToEdit.age;
+		  emailInput.value = recordToEdit.email;
+		  editIndexInput.value = index;
+		}
+
+		function deleteRecord(index) {
+		  displayRecords();
+		  let delBtn = document.querySelectorAll('.deleteButton');
+		  console.log(delBtn);
+		  delBtn[
+			index
+		  ].innerHTML = `<i id="yesBtn" onclick="confirmDelete(${index})" class="fa-solid fa-check"></i><i id="noBtn" onclick="resetDelete(${index})" class="fa-solid fa-xmark"></i>`;
+		}
+
+		function confirmDelete(index) {
+		  records.splice(index, 1);
+		  localStorage.setItem('records', JSON.stringify(records));
+		  displayRecords();
+		}
+
+		function resetDelete(index) {
+		  displayRecords();
+		}
+
+		displayRecords();
+	</script>
 </body>
 </html>
