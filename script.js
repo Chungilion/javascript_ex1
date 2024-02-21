@@ -23,7 +23,7 @@ function displayRecords() {
   console.log(records.length);
   if (records.length === 0) {
     const row = document.createElement('tr');
-    row.innerHTML = `<td colspan="8" style="text-align:center;color:red;">No Record Found</td>`;
+    row.innerHTML = `<td colspan="7" style="text-align:center;color:red;">No Record Found</td>`;
     recordList.appendChild(row);
   } else {
     records.forEach((record, index) => {
