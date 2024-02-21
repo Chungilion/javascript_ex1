@@ -2,7 +2,7 @@ const recordForm = document.getElementById('record-form');
 const msvInput = document.getElementalById('msv');
 const nameInput = document.getElementById('name');
 const dobInput = document.getElementById('dateOfbirth');
-const classInput = document.getElementById('classes');
+const classInput = document.getElementById('className');
 const gpaInput = document.getElementById('gpa')
 const recordList = document.getElementById('record-list');
 const editIndexInput = document.getElementById('edit-index');
@@ -11,7 +11,7 @@ const editIndexInput = document.getElementById('edit-index');
 function displayRecords() {
   recordList.innerHTML = '';
   console.log(records.length);
-  if (records.length == 0) {
+  if (records.length === 0) {
     const row = document.createElement('tr');
     row.innerHTML = `<td colspan="5" style="text-align:center;color:red;">No Record Found</td>`;
     recordList.appendChild(row);
@@ -22,7 +22,7 @@ function displayRecords() {
                     <td>${record.msv}</td>
                     <td>${record.name}</td>
                     <td>${record.dob}</td>
-                    <td>${record.classes}</td>
+                    <td>${record.className}</td>
                     <td>${record.gpa}</td>
                     <td><button onclick="editRecord(${index})">Edit</button></td>
                     <td class="deleteButton"><button onclick="deleteRecord(${index})">Delete</button></td>
@@ -38,17 +38,17 @@ recordForm.addEventListener('submit', function (e) {
   const msv = msvInput.value;
   const name = nameInput.value;
   const dob = dobInput.value;
-  const classes = classInput.value;
+  const className = classInput.value;
   const gpa = gpaInput.value;
   const editIndex = parseInt(editIndexInput.value);
 
   if (msv && name && dob && classes && gpa) {
     if (editIndex === -1) {
       // Add a new record
-      records.push({msv, name, dob, classes, gpa});
+      records.push({msv, name, dob, className, gpa});
     } else {
       // Update an existing record
-      records[editIndex] = {msv, name, dob, classes, gpa};
+      records[editIndex] = {msv, name, dob, className, gpa};
       editIndexInput.value = -1;
     }
 
