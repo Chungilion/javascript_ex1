@@ -1,5 +1,5 @@
 const recordForm = document.getElementById('record-form');
-const studentidInput = document.getElementById('studentid')
+//const studentidInput = document.getElementById('studentid')
 const nameInput = document.getElementById('name');
 const ageInput = document.getElementById('age');
 const emailInput = document.getElementById('email');
@@ -22,7 +22,6 @@ function displayRecords() {
     records.forEach((record, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
-                    <td>${record.studentid}</td>
 					<td>${record.name}</td>
                     <td>${record.age}</td>
                     <td>${record.email}</td>
@@ -37,7 +36,6 @@ function displayRecords() {
 // Add or Update a record
 recordForm.addEventListener('submit', function (e) {
   e.preventDefault();
-  const studentid = studentidInput.value;
   const name = nameInput.value;
   const age = ageInput.value;
   const email = emailInput.value;
@@ -53,7 +51,6 @@ recordForm.addEventListener('submit', function (e) {
     }
 
     localStorage.setItem('records', JSON.stringify(records));
-	studentidInput.value = '';
     nameInput.value = '';
     ageInput.value = '';
     emailInput.value = '';
@@ -64,7 +61,6 @@ recordForm.addEventListener('submit', function (e) {
 // Edit a record
 function editRecord(index) {
   const recordToEdit = records[index];
-  studentidInput.value = recordToEdit.studentid;
   nameInput.value = recordToEdit.name;
   ageInput.value = recordToEdit.age;
   emailInput.value = recordToEdit.email;
