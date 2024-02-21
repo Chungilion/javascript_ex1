@@ -11,9 +11,9 @@ const editIndexInput = document.getElementById('edit-index');
 let records = JSON.parse(localStorage.getItem('records')) || [];
 console.log(records.length);
 // Function to check for duplicate names
-function isDuplicateName(msv) {
+function isDuplicateName(name) {
   return records.some(
-    (record) => record.msv.toLowerCase() === msv.toLowerCase()
+    (record) => record.name.toLowerCase() === name.toLowerCase()
   );
 }
 
@@ -53,7 +53,7 @@ recordForm.addEventListener('submit', function (e) {
   const editIndex = parseInt(editIndexInput.value);
 
   if (msv && name && dob && classes && gpa) {
-    if (isDuplicateName(msv) && editIndex === -1) {
+    if (isDuplicateName(name) && editIndex === -1) {
       alert('Student already exists.');
       return;
     }
@@ -68,7 +68,7 @@ recordForm.addEventListener('submit', function (e) {
     }
 
     localStorage.setItem('records', JSON.stringify(records));
-    msvInput,value = '';
+    msvInput.value = '';
     nameInput.value = '';
     dobInput.value = '';
     classInput.value = '';
