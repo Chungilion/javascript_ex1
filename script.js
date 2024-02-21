@@ -9,11 +9,11 @@ const editIndexInput = document.getElementById('edit-index');
 let records = JSON.parse(localStorage.getItem('records')) || [];
 console.log(records.length);
 // Function to check for duplicate names
-function isDuplicateName(email) {
+/*function isDuplicateName(email) {
   return records.some(
     (record) => record.email.toLowerCase() === email.toLowerCase()
   );
-}
+}*/
 
 // Display records
 function displayRecords() {
@@ -46,11 +46,11 @@ recordForm.addEventListener('submit', function (e) {
   const email = emailInput.value;
   const editIndex = parseInt(editIndexInput.value);
 
-  if (name && age && email) {
+  /*if (name && age && email) {
     if (isDuplicateName(email) && editIndex === -1) {
       alert('Student already exists.');
       return;
-    }
+    }*/
 
     if (editIndex === -1) {
       // Add a new record
