@@ -1,7 +1,9 @@
 const recordForm = document.getElementById('record-form');
+const msvInput = document.getElementalById('msv');
 const nameInput = document.getElementById('name');
-const ageInput = document.getElementById('age');
-const emailInput = document.getElementById('email');
+const dobInput = document.getElementById('dateOfbirth');
+const classInput = document.getElementById('classes');
+const gpaInput = document.getElementById('gpa')
 const recordList = document.getElementById('record-list');
 const editIndexInput = document.getElementById('edit-index');
 
@@ -9,9 +11,9 @@ const editIndexInput = document.getElementById('edit-index');
 let records = JSON.parse(localStorage.getItem('records')) || [];
 console.log(records.length);
 // Function to check for duplicate names
-function isDuplicateName(email) {
+function isDuplicateName(msv) {
   return records.some(
-    (record) => record.email.toLowerCase() === email.toLowerCase()
+    (record) => record.msv.toLowerCase() === msv.toLowerCase()
   );
 }
 
@@ -27,9 +29,11 @@ function displayRecords() {
     records.forEach((record, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
+                    <td>${record.msv}</td>
                     <td>${record.name}</td>
-                    <td>${record.age}</td>
-                    <td>${record.email}</td>
+                    <td>${record.dob}</td>
+                    <td>${record.class}</td>
+                    <td>${record.gpa}</td>
                     <td><button onclick="editRecord(${index})">Edit</button></td>
                     <td class="deleteButton"><button onclick="deleteRecord(${index})">Delete</button></td>
                 `;
@@ -41,30 +45,34 @@ function displayRecords() {
 // Add or Update a record
 recordForm.addEventListener('submit', function (e) {
   e.preventDefault();
+  const msv = msvInput.value;
   const name = nameInput.value;
-  const age = ageInput.value;
-  const email = emailInput.value;
+  const dob = dobInput.value;
+  const classes = classInput.value;
+  const gpa = gpaInput.value;
   const editIndex = parseInt(editIndexInput.value);
 
-  if (name && age && email) {
-    if (isDuplicateName(email) && editIndex === -1) {
+  if (msv && name && dob && classes && gpa) {
+    if (isDuplicateName(msv) && editIndex === -1) {
       alert('Student already exists.');
       return;
     }
 
     if (editIndex === -1) {
       // Add a new record
-      records.push({ name, age, email });
+      records.push({ msv, name, dob, classes, gpa });
     } else {
       // Update an existing record
-      records[editIndex] = { name, age, email };
+      records[editIndex] = {msv, name, dob, classes, gpa };
       editIndexInput.value = -1;
     }
 
     localStorage.setItem('records', JSON.stringify(records));
+    msvInput,value = '';
     nameInput.value = '';
-    ageInput.value = '';
-    emailInput.value = '';
+    dobInput.value = '';
+    classInput.value = '';
+    gpaInput.value = '';
     displayRecords();
   }
 });
@@ -72,9 +80,11 @@ recordForm.addEventListener('submit', function (e) {
 // Edit a record
 function editRecord(index) {
   const recordToEdit = records[index];
+  msvInput.value = recordToEdit.msv;
   nameInput.value = recordToEdit.name;
-  ageInput.value = recordToEdit.age;
-  emailInput.value = recordToEdit.email;
+  dobInput.value = recordToEdit.dob;
+  classInput.value = recordToEdit.classes;
+  gpaInput.value = recordToEdit.gpa;
   editIndexInput.value = index;
 }
 

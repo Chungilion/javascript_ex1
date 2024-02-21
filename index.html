@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+	<center>
     <div class="container">
         <div class="left">
-            <h1>Student Registration</h1>
+            <h1>The Onepiece, the Onepiece is real!</h1>
             <form id="record-form">
+				<input type="text" id="msv" placeholder="MSV" required>
                 <input type="text" id="name" placeholder="Name" required>
-                <input type="number" id="age" placeholder="Age" required>
-                <input type="text" id="email" placeholder="Email" required>
+				<input type="date" id="dateOfbirth" placeholder="DateOfBirth" required>
+				<input type="text" id="classes" placeholder="Classes" required>
+                <input type="number" id="gpa" placeholder="GPA" required>
                 <button type="submit">Add Record</button>
                 <input type="hidden" id="edit-index" value="-1">
             </form>
@@ -24,10 +27,12 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Student Code</th>
                         <th>Name</th>
-                        <th>Age</th>
-                        <th>Email</th>
-                        <th>Edit</th>
+                        <th>Date of birth</th>
+                        <th>Class</th>
+						<th>GPA</th>
+						<th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -36,5 +41,6 @@
         </div>
     </div>
     <script src="script.js"></script>
+	</center>
 </body>
 </html>
