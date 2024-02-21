@@ -17,6 +17,15 @@
 	  background-attachment: fixed;
 	  background-size: cover;
 	}
+	.container {
+	  display: flex;
+	  flex-wrap: wrap;
+	  max-width: 900px;
+	  margin: 0 auto;
+	  border: 1px solid #ccc;
+	  padding: 20px;
+	  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	}
 	.right {
 	  flex: 1;
 	  padding: 10px;
@@ -25,6 +34,10 @@
 	  flex: 1;
 	  padding: 10px;
 	}
+	.right {
+	  flex: 1;
+	  padding: 10px;
+	  border-left: 1px solid #ccc;
 	.center {
 	  margin-left: auto;
 	  margin-right: auto;
@@ -87,6 +100,7 @@
 </head>
 <body>
     <div>
+		<div style="container">
         <div>
             <h1 style="color:Ivory;">The Onepiece, the Onepiece is real!</h1>
             <form style="left" id="record-form">
@@ -102,6 +116,7 @@
 		<div style="right"> 
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=cCsy6uChL_7e62Ba&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
+		</div>
 		<div>
 		<center>
             <h2 style="color:Ivory;">Records</h2>
