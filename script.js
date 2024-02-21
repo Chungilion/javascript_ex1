@@ -45,10 +45,10 @@ recordForm.addEventListener('submit', function (e) {
 
     if (editIndex === -1) {
       // Add a new record
-      records.push({ name, age, email });
+      records.push({ studentid, name, age, email });
     } else {
       // Update an existing record
-      records[editIndex] = { name, age, email };
+      records[editIndex] = { studentid, name, age, email };
       editIndexInput.value = -1;
     }
 
