@@ -7,50 +7,6 @@ const gpaInput = document.getElementById('gpa')
 const recordList = document.getElementById('record-list');
 const editIndexInput = document.getElementById('edit-index');
 
-/*class Student {
-    constructor(msv, name, dob, className, gpa) {
-        this.msv = msv;
-        this.name = name;
-        this.dob = dob;
-        this.className = className;
-        this.gpa = gpa;
-    }
-
-    updateInfo(name, dob, className, gpa) {
-        this.name = name;
-        this.birthdate = birthdate;
-        this.className = className;
-        this.gpa = gpa;
-    }
-}
-
-let students = [];
-
-
-function addStudent() {
-    const msv = document.getElementById("msv").value;
-    const name = document.getElementById("name").value;
-    const dob = document.getElementById("dob").value;
-    const className = document.getElementById("className").value;
-    const gpa = parseFloat(document.getElementById("gpa").value);
-
-    const newStudent = new Student(msv, name, dob, className, gpa);
-    students.push(newStudent);
-    displayStudents();
-}
-
-function displayStudents() {
-    const studentUl = document.getElementById("studentUl");
-    studentUl.innerHTML = "";
-    
-    students.forEach(student => {
-        const li = document.createElement("li");
-        li.textContent = `Mã SV: ${student.msv}, Họ và Tên: ${student.name}, Ngày sinh: ${student.dob}, Lớp học: ${student.className}, GPA: ${student.gpa}`;
-        studentUl.appendChild(li);
-    });
-}
-*/
-
 // Initialize records from local storage
 let records = JSON.parse(localStorage.getItem('records')) || [];
 console.log(records.length);
@@ -113,9 +69,11 @@ recordForm.addEventListener('submit', function (e) {
 // Edit a record
 function editRecord(index) {
   const recordToEdit = records[index];
+  msvInput.value = recordToEdit.msv;
   nameInput.value = recordToEdit.name;
-  ageInput.value = recordToEdit.age;
-  emailInput.value = recordToEdit.email;
+  dateOfbirthInput.value = recordToEdit.dateOfbirth;
+  classNameInput.value = recordToEdit.className;
+  gpaInput.value = recordToEdit.gpa;
   editIndexInput.value = index;
 }
 
