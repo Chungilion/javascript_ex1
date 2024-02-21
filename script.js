@@ -32,7 +32,7 @@ function displayRecords() {
                     <td>${record.msv}</td>
                     <td>${record.name}</td>
                     <td>${record.dob}</td>
-                    <td>${record.class}</td>
+                    <td>${record.classes}</td>
                     <td>${record.gpa}</td>
                     <td><button onclick="editRecord(${index})">Edit</button></td>
                     <td class="deleteButton"><button onclick="deleteRecord(${index})">Delete</button></td>
