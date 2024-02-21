@@ -11,7 +11,7 @@ const editIndexInput = document.getElementById('edit-index');
 function displayRecords() {
   recordList.innerHTML = '';
   console.log(records.length);
-  if (records.length === 0) {
+  if (records.length == 0) {
     const row = document.createElement('tr');
     row.innerHTML = `<td colspan="7" style="text-align:center;color:red;">No Record Found</td>`;
     recordList.appendChild(row);
