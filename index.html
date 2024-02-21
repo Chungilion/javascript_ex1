@@ -17,11 +17,9 @@
                 <input type="date" id="birthdate" placeholder="Date of Birth" required>
                 <input type="text" id="className" placeholder="Class" required>
 				<input type="number" id="gpa" placeholder="GPA" required>
-                <button type="submit">Add Record</button>
-                <input type="hidden" id="edit-index" value="-1">
             </form>
         </div>
-        <div class="right">
+        <div id="studentList">
             <h2>Records</h2>
             <table>
                 <thead>
@@ -35,7 +33,7 @@
                         <th>Delete</th>
                     </tr>
                 </thead>
-                <tbody id="record-list"></tbody>
+                <tbody id="studentUl"></tbody>
             </table>
         </div>
     </div>
