@@ -1,15 +1,19 @@
 const recordForm = document.getElementById('record-form');
-const msvInput = document.getElementalById('msv');
 const nameInput = document.getElementById('name');
-const dobInput = document.getElementById('dateOfbirth');
-const classNameInput = document.getElementById('className');
-const gpaInput = document.getElementById('gpa')
+const ageInput = document.getElementById('age');
+const emailInput = document.getElementById('email');
 const recordList = document.getElementById('record-list');
 const editIndexInput = document.getElementById('edit-index');
 
 // Initialize records from local storage
-let records = [];
+let records = JSON.parse(localStorage.getItem('records')) || [];
 console.log(records.length);
+// Function to check for duplicate names
+function isDuplicateName(email) {
+  return records.some(
+    (record) => record.email.toLowerCase() === email.toLowerCase()
+  );
+}
 
 // Display records
 function displayRecords() {
@@ -17,17 +21,15 @@ function displayRecords() {
   console.log(records.length);
   if (records.length === 0) {
     const row = document.createElement('tr');
-    row.innerHTML = `<td colspan="8" style="text-align:center;color:red;">No Record Found</td>`;
+    row.innerHTML = `<td colspan="5" style="text-align:center;color:red;">No Record Found</td>`;
     recordList.appendChild(row);
   } else {
     records.forEach((record, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
-					<td>${record.msv}</td>
                     <td>${record.name}</td>
-                    <td>${record.dateOfbirth}</td>
-					<td>${record.className}</td>
-                    <td>${record.gpa}</td>
+                    <td>${record.age}</td>
+                    <td>${record.email}</td>
                     <td><button onclick="editRecord(${index})">Edit</button></td>
                     <td class="deleteButton"><button onclick="deleteRecord(${index})">Delete</button></td>
                 `;
@@ -39,27 +41,30 @@ function displayRecords() {
 // Add or Update a record
 recordForm.addEventListener('submit', function (e) {
   e.preventDefault();
-  const msv = msvInput.value;
   const name = nameInput.value;
-  const dateOfbirth = dateOfbirthInput.value;
-  const className = classNameInput.value;
-  const gpa = gpaInput.value;
+  const age = ageInput.value;
+  const email = emailInput.value;
   const editIndex = parseInt(editIndexInput.value);
 
-  if (msv && name && dateOfbirth && className && gpa) {
+  if (name && age && email) {
+    if (isDuplicateName(email) && editIndex === -1) {
+      alert('Student already exists.');
+      return;
+    }
+
     if (editIndex === -1) {
       // Add a new record
-      records.push({ msv, name, dateOfbirth, className, gpa });
+      records.push({ name, age, email });
     } else {
       // Update an existing record
-      records[editIndex] = { msv, name, dateOfbirth, className, gpa };
+      records[editIndex] = { name, age, email };
       editIndexInput.value = -1;
     }
-	msvInput.value = '';
+
+    localStorage.setItem('records', JSON.stringify(records));
     nameInput.value = '';
-    dateOfbirthInput.value = '';
-	classNameInput.value = '';
-    gpaInput.value = '';
+    ageInput.value = '';
+    emailInput.value = '';
     displayRecords();
   }
 });
@@ -67,11 +72,9 @@ recordForm.addEventListener('submit', function (e) {
 // Edit a record
 function editRecord(index) {
   const recordToEdit = records[index];
-  msvInput.value = recordToEdit.msv;
   nameInput.value = recordToEdit.name;
-  dateOfbirthInput.value = recordToEdit.dateOfbirth;
-  classNameInput.value = recordToEdit.className;
-  gpaInput.value = recordToEdit.gpa;
+  ageInput.value = recordToEdit.age;
+  emailInput.value = recordToEdit.email;
   editIndexInput.value = index;
 }
 
@@ -87,6 +90,7 @@ function deleteRecord(index) {
 
 function confirmDelete(index) {
   records.splice(index, 1);
+  localStorage.setItem('records', JSON.stringify(records));
   displayRecords();
 }
 
@@ -96,4 +100,3 @@ function resetDelete(index) {
 
 // Initial display
 displayRecords();
-*/

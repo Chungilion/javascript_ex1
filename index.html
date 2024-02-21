@@ -4,35 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Database Management System</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<center>
     <div class="container">
-        <div>
-            <h1>The Onepiece, the Onepiece is real!</h1>
+        <div class="left">
+            <h1>Student Registration</h1>
             <form id="record-form">
-				<input type="text" id="msv" name="MSV">
-				<input type="text" id="name" name="Name">
-				<input type="date" id="dateOfbirth" name="DateOfBirth">
-				<input type="text" id="className" name="ClassName">
-				<input type="number" id="gpa" name="GPA">
-				<button type="submit">Add Record</button>
-				<input type="hidden" id="edit-index" value="-1">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="number" id="age" placeholder="Age" required>
+                <input type="text" id="email" placeholder="Email" required>
+                <button type="submit">Add Record</button>
+                <input type="hidden" id="edit-index" value="-1">
             </form>
         </div>
-        <div>
+        <div class="right">
             <h2>Records</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Student Code</th>
                         <th>Name</th>
-                        <th>Date of birth</th>
-                        <th>Class</th>
-						<th>GPA</th>
-						<th>Edit</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -40,106 +35,6 @@
             </table>
         </div>
     </div>
-    <script>
-		const recordForm = document.getElementById('record-form');
-		const msvInput = document.getElementalById('msv');
-		const nameInput = document.getElementById('name');
-		const dobInput = document.getElementById('dateOfbirth');
-		const classNameInput = document.getElementById('className');
-		const gpaInput = document.getElementById('gpa')
-		const recordList = document.getElementById('record-list');
-		const editIndexInput = document.getElementById('edit-index');
-
-		// Initialize records from local storage
-		let records = [];
-		console.log(records.length);
-
-		// Display records
-		function displayRecords() {
-		  recordList.innerHTML = '';
-		  console.log(records.length);
-		  if (records.length === 0) {
-			const row = document.createElement('tr');
-			row.innerHTML = `<td colspan="8" style="text-align:center;color:red;">No Record Found</td>`;
-			recordList.appendChild(row);
-		  } else {
-			records.forEach((record, index) => {
-			  const row = document.createElement('tr');
-			  row.innerHTML = `
-							<td>${record.msv}</td>
-							<td>${record.name}</td>
-							<td>${record.dateOfbirth}</td>
-							<td>${record.className}</td>
-							<td>${record.gpa}</td>
-							<td><button onclick="editRecord(${index})">Edit</button></td>
-							<td class="deleteButton"><button onclick="deleteRecord(${index})">Delete</button></td>
-						`;
-			  recordList.appendChild(row);
-			});
-		  }
-		}
-
-		// Add or Update a record
-		recordForm.addEventListener('submit', function (e) {
-		  e.preventDefault();
-		  const msv = msvInput.value;
-		  const name = nameInput.value;
-		  const dateOfbirth = dateOfbirthInput.value;
-		  const className = classNameInput.value;
-		  const gpa = gpaInput.value;
-		  const editIndex = parseInt(editIndexInput.value);
-
-		  if (msv && name && dateOfbirth && className && gpa) {
-			if (editIndex === -1) {
-			  // Add a new record
-			  records.push({ msv, name, dateOfbirth, className, gpa });
-			} else {
-			  // Update an existing record
-			  records[editIndex] = { msv, name, dateOfbirth, className, gpa };
-			  editIndexInput.value = -1;
-			}
-			msvInput.value = '';
-			nameInput.value = '';
-			dateOfbirthInput.value = '';
-			classNameInput.value = '';
-			gpaInput.value = '';
-			displayRecords();
-		  }
-		});
-
-		// Edit a record
-		function editRecord(index) {
-		  const recordToEdit = records[index];
-		  msvInput.value = recordToEdit.msv;
-		  nameInput.value = recordToEdit.name;
-		  dateOfbirthInput.value = recordToEdit.dateOfbirth;
-		  classNameInput.value = recordToEdit.className;
-		  gpaInput.value = recordToEdit.gpa;
-		  editIndexInput.value = index;
-		}
-
-		// Delete a record
-		function deleteRecord(index) {
-		  displayRecords();
-		  let delBtn = document.querySelectorAll('.deleteButton');
-		  console.log(delBtn);
-		  delBtn[
-			index
-		  ].innerHTML = `<i id="yesBtn" onclick="confirmDelete(${index})" class="fa-solid fa-check"></i><i id="noBtn" onclick="resetDelete(${index})" class="fa-solid fa-xmark"></i>`;
-		}
-
-		function confirmDelete(index) {
-		  records.splice(index, 1);
-		  displayRecords();
-		}
-
-		function resetDelete(index) {
-		  displayRecords();
-		}
-
-		// Initial display
-		displayRecords();
-	</script>
-</center>
+    <script src="script.js"></script>
 </body>
 </html>
