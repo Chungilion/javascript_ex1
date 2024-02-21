@@ -38,14 +38,7 @@ function displayStudents() {
     
     students.forEach(student => {
         const li = document.createElement("li");
-        row.innerHTML = `
-					<td>${student.studentID}</td>
-                    <td>${student.fullName}</td>
-                    <td>${student.birthdate}</td>
-                    <td>${student.className}</td>
-					<td>${student.gpa}</td>
-                    <td><button onclick="editRecord(${index})">Edit</button></td>
-                    <td class="deleteButton"><button onclick="deleteRecord(${index})">Delete</button></td>
-                `;
+        li.textContent = `StudentID: ${student.id}, Name: ${student.fullName}, Date of Birth: ${student.birthdate}, Class: ${student.className}, GPA: ${student.gpa}`;
+        studentUl.appendChild(li);
     });
 }
